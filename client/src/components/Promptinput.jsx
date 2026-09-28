@@ -1,7 +1,7 @@
 import { ArrowRightIcon, CloudUploadIcon, Loader2Icon, MicIcon } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react'
 
-const Promptinput = ({onSubmit, loading = false, placeholder= "Describe the website you want to build...",large = false, autoFocus = false, variant="default"}) => {
+const PromptInput = ({onSubmit, loading = false, placeholder= "Describe the website you want to build...",large = false, autoFocus = false, variant="default"}) => {
    
     const [value, setValue] = useState("");
     const textareaRef = useRef(null)
@@ -98,4 +98,4 @@ const Promptinput = ({onSubmit, loading = false, placeholder= "Describe the webs
   )
 }
 
-export default Promptinput
+export default PromptInput

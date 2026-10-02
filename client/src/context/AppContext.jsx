@@ -21,7 +21,7 @@ export function AppContextProvider({children}){
     const [loadingactiveprojects,setLoadingactiveProjects] = useState(true);
     const[chatLoading,setChatLoading] = useState(false)
     const [generatingproject,setGeneratingProject] = useState(false);
-    const [activeFile,setActiveFile] = useState("/App.js");
+    const [activeFile,setActiveFile] = useState(null);
     const [showCode,setShowCode] = useState(false);
 
     // Auth Actions 

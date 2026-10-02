@@ -42,7 +42,7 @@ function TreeItem({node, activeFile, onFileSelect, depth = 0}){
             <div>
                 <div className='flex item-center gap-2 py-1 px-2 text-xs text-zinc-400 
                 select-none'
-                style={{paddingLeft : `${depth * 12 + 8}px`}}>
+                style={{paddingLeft : '${depth * 12 + 8}px'}}>
                     <FolderOpenIcon size={14} className='text-zinc-800 opacity-60' />
                     <span>{node.name}</span>
                 </div>
@@ -61,9 +61,10 @@ function TreeItem({node, activeFile, onFileSelect, depth = 0}){
         "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900"}`}
         style={{paddingLeft:'${depth * 12 + 8}px'}}>
             {getFiileIcon(node.name)}
-            <span className='trancate'>{node.name}</span>
+            <span className='truncate'>{node.name}</span>
         </button>
     )
+    console.log("FILE SELECTED:", node.path);
 }
 
 const FileExplorer = ({files, activeFile, onFileSelect}) => {
@@ -78,5 +79,7 @@ const FileExplorer = ({files, activeFile, onFileSelect}) => {
     </div>
   )
 }
+
+
 
 export default FileExplorer

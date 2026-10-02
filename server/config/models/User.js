@@ -1,22 +1,43 @@
-import mongoose, {Schema} from 'mongoose'
-import bcrypt from 'bcrypt'
+import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
 
-const UserSchema = new Schema({
-    name:{type: String, required: true},
-    email: {type: String, required: true, unique: true, lowercase: true, trim: true},
-    password: {type: String, required: true},
-},{timestamp: true})
+const UserSchema = new Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+        },
 
-//Hash password before saving
-UserSchema('save', async () => {
-    if(!this.isModified('password')) return;
-    const salt = await bcrypt.genSalt(10)
-    this.password = await bcrypt.hash(this.password, salt)
-})
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+            trim: true,
+        },
 
-// Compare password method
+        password: {
+            type: String,
+            required: true,
+        },
+    },
+    {
+        timestamps: true,
+    }
+);
+
+UserSchema.pre("save", async function () {
+    if (!this.isModified("password")) {
+        return;
+    }
+
+    const salt = await bcrypt.genSalt(10);
+
+    this.password = await bcrypt.hash(this.password, salt);
+});
+
 UserSchema.methods.comparePassword = async function (password) {
-    return bcrypt.compare(password, this.password)
-}
+    return bcrypt.compare(password, this.password);
+};
 
-export const User = mongoose.model(`User`, UserSchema)
+export const User = mongoose.model("User", UserSchema);

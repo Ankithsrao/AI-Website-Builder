@@ -116,7 +116,12 @@ const BuilderPage = () => {
             activeProject.status === "failed" ? (
                 <AgentProgressDashboard project={activeProject} />
             ): (
-              <PreviewPanel project={activeProject} activeFile={activeFile} showCode={showCode}/>
+              <PreviewPanel
+                project={activeProject}
+                activeFile={activeFile}
+                showCode={showCode}
+                onActiveFileChange={setActiveFile}
+              />
             )}
               
         </div>

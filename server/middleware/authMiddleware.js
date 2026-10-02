@@ -1,17 +1,27 @@
 import jwt from "jsonwebtoken";
 
-export function authMiddleware(req, res, next){
-    const token = req.cookies.token;
+const authMiddleware = (req, res, next) => {
+    try {
+        const token = req.cookies?.token;
 
-    if(!token){
-        res.status(401).json({ error: "Access denied. No session token provided"});
-    }
+        if (!token) {
+            return res.status(401).json({
+                error: "Unauthorized",
+            });
+        }
 
-    try{
-        const decoded = jwt.verify(token, process.env.JWT_SECERT || 'fallback_secert');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
         req.user = decoded;
-        next()
-    }catch (err) {
-        res.status(401).json({error: "Session expired or invalid. Please Sign in again"})
+
+        return next();
+    } catch (error) {
+        console.error("Auth middleware error:", error);
+
+        return res.status(401).json({
+            error: "Invalid or expired token",
+        });
     }
-}
+};
+
+export default authMiddleware;
